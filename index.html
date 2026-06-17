@@ -918,8 +918,8 @@ function openNotifications(r){
   const t = rk?TEAM[rk]:null;
   const ceo=buildCeoMsg(r), team=buildTeamMsg(r);
   const ceoTo=CEO_EMAILS.join(",");
-  const ceoMailto=`mailto:${encodeURIComponent(ceoTo)}?subject=${encodeURIComponent(ceo.subject)}&body=${encodeURIComponent(ceo.body)}`;
-  const teamMailto=t?`mailto:${t.email}?subject=${encodeURIComponent(team.subject)}&body=${encodeURIComponent(team.body)}`:"#";
+  const ceoMailto=`https://mail.google.com/mail/?view=cm&to=${encodeURIComponent(ceoTo)}&su=${encodeURIComponent(ceo.subject)}&body=${encodeURIComponent(ceo.body)}`;
+  const teamMailto=t?`https://mail.google.com/mail/?view=cm&to=${encodeURIComponent(t.email)}&su=${encodeURIComponent(team.subject)}&body=${encodeURIComponent(team.body)}`:"#";
   const waLink=t?`https://wa.me/${t.wpp}?text=${encodeURIComponent(team.wpp)}`:"#";
   window.__lastCeo=ceo.body; window.__lastTeam=team.body; window.__lastWpp=team.wpp;
   const syncMsg = SHEET_URL
