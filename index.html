@@ -922,6 +922,7 @@ function openNotifications(r){
   const teamMailto=t?`https://mail.google.com/mail/?view=cm&to=${encodeURIComponent(t.email)}&su=${encodeURIComponent(team.subject)}&body=${encodeURIComponent(team.body)}`:"#";
   const waLink=t?`https://wa.me/${t.wpp}?text=${encodeURIComponent(team.wpp)}`:"#";
   window.__lastCeo=ceo.body; window.__lastTeam=team.body; window.__lastWpp=team.wpp;
+  window.__gmailCeo=ceoMailto; window.__gmailTeam=teamMailto;
   const syncMsg = SHEET_URL
      ? `<div id="syncStatus" class="note" style="font-size:12px;background:var(--ok-bg);border:1px solid var(--ok);color:var(--ok)">✅ Registro enviado para a planilha do Google. A lista sincroniza para todos em instantes.</div>`
      : `<div id="syncStatus" class="note">🔌 Integração com a planilha do Google não configurada. Defina a URL do Web App (no código <b>CONFIG</b> ou em Admin) para gravar para todos.</div>`;
@@ -932,11 +933,11 @@ function openNotifications(r){
 
     <div class="notif"><div class="nh"><div class="ic ceo">👔</div><div><b>Aviso à gestão / CEO</b><span class="to">${esc(ceoTo.replace(/,/g," · "))}</span></div></div>
       <pre>${esc(ceo.body)}</pre>
-      <div class="acts"><a class="act primary" href="${ceoMailto}" target="_blank">📧 Abrir e-mail</a>
+      <div class="acts"><button class="act primary" onclick="window.open(window.__gmailCeo,'_blank','noopener,noreferrer')">📧 Abrir e-mail</button>
         <button class="act copy" onclick="copyTxt(window.__lastCeo)">Copiar</button></div></div>
 
     <div class="notif"><div class="nh"><div class="ic mail">📨</div><div><b>Aviso à equipe operacional — e-mail</b><span class="to">${t?esc(t.nome)+" · "+esc(t.email):"Responsável não definido p/ este empreendimento"}</span></div></div>
-      ${t?`<pre>${esc(team.body)}</pre><div class="acts"><a class="act primary" href="${teamMailto}" target="_blank">📧 Abrir e-mail</a><button class="act copy" onclick="copyTxt(window.__lastTeam)">Copiar</button></div>`
+      ${t?`<pre>${esc(team.body)}</pre><div class="acts"><button class="act primary" onclick="window.open(window.__gmailTeam,'_blank','noopener,noreferrer')">📧 Abrir e-mail</button><button class="act copy" onclick="copyTxt(window.__lastTeam)">Copiar</button></div>`
           :`<div class="note">Defina o responsável para gerar o aviso. (Empreendimento "${esc(r.emp)}" sem regra de roteamento.)</div>`}</div>
 
     <div class="notif"><div class="nh"><div class="ic wa">💬</div><div><b>Aviso à equipe — WhatsApp</b><span class="to">${t?esc(t.nome)+" · +"+esc(t.wpp):"—"}</span></div></div>
